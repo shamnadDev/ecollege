@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "69778231001",
+    "project_id": "ecollege-8156b",
+    "storage_bucket": "ecollege-8156b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69778231001:android:3077f3977beffad5f038c8",
+        "android_client_info": {
+          "package_name": "com.example.ecollege"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcxy1begazN7YIFgfsqTfeOx6Lpec9UBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
