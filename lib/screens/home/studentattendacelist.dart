@@ -53,7 +53,19 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               } else {
                 statusColor = Colors.orange;
               }
-          
+          String getint(){
+            int index=attendance.index;
+if(index==1){
+return "${index}st period";
+}else if(index==2){
+  return "${index}nd period";
+}else if(index==3){
+  return "${index}rd period";
+}else{
+  return "${index}th period";
+}
+
+          }
               // Animated slide-in effect
               return TweenAnimationBuilder<Offset>(
                 tween: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero),
@@ -98,7 +110,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                             "${ attendance.index}nd period",
+                             getint().toString(),
                               style: const TextStyle(color: Colors.white70, fontSize: 14),
                             ),
                           ],
