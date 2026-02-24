@@ -88,22 +88,17 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Student Name & Subject
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              attendance.name,
-                              style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
                               attendance.subjectname,
-                              style: const TextStyle(color: Colors.white70, fontSize: 14),
+                              style: const TextStyle(color: Colors.white,
+                               fontSize: 18, fontWeight: FontWeight.bold),
                             ),
+                          
                           ],
                         ),
-                        // Status & Date
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
