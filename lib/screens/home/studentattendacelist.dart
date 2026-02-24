@@ -89,14 +89,18 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               attendance.subjectname,
                               style: const TextStyle(color: Colors.white,
                                fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                          
+                            const SizedBox(height: 4),
+                            Text(
+                             "${ attendance.index}nd period",
+                              style: const TextStyle(color: Colors.white70, fontSize: 14),
+                            ),
                           ],
                         ),
                         Column(
