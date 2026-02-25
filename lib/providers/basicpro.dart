@@ -415,14 +415,16 @@ double attnded=s.docs.length/5;
 print(s.docs.length);
 
   if (a.docs.isEmpty) {
-    percentage = 0; 
+    percentage = 0;
+    notifyListeners(); 
   } else
    {
     percentage = (attnded / a.docs.length) * 100;
+    percentage.toStringAsFixed(2);
     notifyListeners();
   }
 
-percentage.toStringAsFixed(2);
+
 }
 
 //messages
