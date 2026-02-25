@@ -18,35 +18,90 @@ class Slcttt extends StatefulWidget {
 class _SlctttState extends State<Slcttt> {
   @override
   Widget build(BuildContext context) {
-         final s=context.read<Basicpro>();
-         String sd="";
-    final a=context.read<adminpro>();
+
+    final s = context.read<Basicpro>();
+    final a = context.read<adminpro>();
+
     return Scaffold(
-      appBar: AppBar(title: Text("Edit timetable"),),
-body: Column(
-  children: [    dentry(context.read<adminpro>().classNames, "Class",
-  (d){
-    print(d.toString());
-   a.ttclass=d.toString();
- }),
-    dentry(a.years.map((e){return e.toString();}).toList(), 
-    "Batch",(d){a.ttbatch=int.parse(d);
-    print(a.ttbatch.toString());
-    }),SizedBox(height: 100,),
-    Center(child: buttonst(padding: 0, width: 130, 
-    clr:Colors.grey.shade400, txtclr:Colors.black, 
-    txt: "Next", onPressed: ()
-    async{
-      
-   context.read<adminpro>().addtttolocal();
-      late Timetable tt;
-     a.addtttolocal();
-     a.getttedit("Monday");
-Future.delayed(Duration(milliseconds: 1000)).then((a){
-Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Ttedit()));
-});
-    }),)
-    ],
-    ));
+      appBar: AppBar(title: const Text("Edit timetable")),
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+
+            double contentWidth = constraints.maxWidth;
+
+            if (constraints.maxWidth > 1200) {
+              contentWidth = 600;
+            } else if (constraints.maxWidth > 900) {
+              contentWidth = 500;
+            } else if (constraints.maxWidth > 600) {
+              contentWidth = 450;
+            } else {
+              contentWidth = constraints.maxWidth;
+            }
+
+            return Center(
+              child: Container(
+                width: contentWidth,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+
+                    dentry(
+                      context.read<adminpro>().classNames,
+                      "Class",
+                      (d) {
+                        print(d.toString());
+                        a.ttclass = d.toString();
+                      },
+                    ),
+
+                    dentry(
+                      a.years.map((e) => e.toString()).toList(),
+                      "Batch",
+                      (d) {
+                        a.ttbatch = int.parse(d);
+                        print(a.ttbatch.toString());
+                      },
+                    ),
+
+                    const SizedBox(height: 100),
+
+                    Center(
+                      child: buttonst(
+                        padding: 0,
+                        width: 130,
+                        clr: Colors.grey.shade400,
+                        txtclr: Colors.black,
+                        txt: "Next",
+                        onPressed: () async {
+
+                          context.read<adminpro>().addtttolocal();
+
+                          late Timetable tt;
+                          a.addtttolocal();
+                          a.getttedit("Monday");
+
+                          Future.delayed(
+                            const Duration(milliseconds: 1000),
+                          ).then((a) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => Ttedit(),
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
   }
 }

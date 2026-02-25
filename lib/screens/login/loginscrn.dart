@@ -336,6 +336,16 @@ class _LoginScreenState extends State<LoginScreen>
 
                         TextButton(
                           onPressed: () {
+                           showRegisterDialog(context);
+                          },
+                          child: Text(
+                            "Forget password",
+                            style:
+                                TextStyle(color: Color(0xff667eea)),
+                          ),
+                        ),SizedBox(height: 10),
+                          TextButton(
+                          onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (_) => RegisterScreen()),
@@ -358,7 +368,68 @@ class _LoginScreenState extends State<LoginScreen>
       ),
     );
   }
+void showRegisterDialog(BuildContext context) {
+  final TextEditingController regController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        title: const Text(
+          "Enter Details",
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: regController,
+              decoration: const InputDecoration(
+                labelText: "Register Number",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 15),
+            TextField(
+              controller: phoneController,
+              keyboardType: TextInputType.phone,
+              decoration: const InputDecoration(
+                labelText: "Phone Number",
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("Cancel"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                      "An email was sent to your email address"),
+                  duration: Duration(seconds: 2),
+                ),
+              );
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      );
+    },
+  );
+}
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,

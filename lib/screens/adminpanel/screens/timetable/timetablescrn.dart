@@ -1,3 +1,4 @@
+
 import 'package:ecollege/providers/adminpro/adminpro.dart';
 import 'package:ecollege/providers/basicpro.dart';
 import 'package:ecollege/screens/adminpanel/screens/timetable/ttedit.dart';
@@ -16,52 +17,143 @@ class Timetablescrn extends StatefulWidget {
 
 class _TimetablescrnState extends State<Timetablescrn> {
   final formKey = GlobalKey<FormState>();
-   
+
   @override
   Widget build(BuildContext context) {
-    
-     final s=context.read<Basicpro>();
-    final a=context.read<adminpro>();
+
+    final s = context.read<Basicpro>();
+    final a = context.read<adminpro>();
+
     return Scaffold(
-      appBar: AppBar(title: Text("Add timetable"),),
-      body: SafeArea(child: Form(
-key: formKey,
-      child: Column(children: [Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SegmentedButton(
-          onSelectionChanged: (ab) {
-           a.setset(ab);
+      appBar: AppBar(title: const Text("Add timetable")),
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+
+            double contentWidth = constraints.maxWidth;
+
+            if (constraints.maxWidth > 1200) {
+              contentWidth = 800;
+            } else if (constraints.maxWidth > 900) {
+              contentWidth = 700;
+            } else if (constraints.maxWidth > 600) {
+              contentWidth = 550;
+            } else {
+              contentWidth = constraints.maxWidth;
+            }
+
+            return Center(
+              child: Container(
+                width: contentWidth,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Form(
+                  key: formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SegmentedButton(
+                            onSelectionChanged: (ab) {
+                              a.setset(ab);
+                            },
+                            segments: const [
+                              ButtonSegment(
+                                  value: "Monday",
+                                  label: Text("Mon")),
+                              ButtonSegment(
+                                  value: "Tuesday",
+                                  label: Text("Tue")),
+                              ButtonSegment(
+                                  value: "Wednesday",
+                                  label: Text("Wed")),
+                              ButtonSegment(
+                                  value: "Thursday",
+                                  label: Text("Thu")),
+                              ButtonSegment(
+                                  value: "Friday",
+                                  label: Text("Fri")),
+                            ],
+                            selected:
+                                context.watch<adminpro>().s,
+                          ),
+                        ),
+
+                        dentry(
+                          context.read<adminpro>().classNames,
+                          "Class",
+                          (d) {
+                            a.classget(d);
+                          },
+                        ),
+
+                        dentry(
+                          a.years
+                              .map((e) => e.toString())
+                              .toList(),
+                          "Batch",
+                          (d) {
+                            a.batch = int.parse(d);
+                            print(a.batch.toString());
+                          },
+                        ),
+
+                        dropentry(
+                            context.watch<Basicpro>().s,
+                            "1st hour",
+                            (d) { a.first = d; }),
+
+                        dropentry(
+                            context.watch<Basicpro>().s,
+                            "2nd hour",
+                            (d) { a.second = d; }),
+
+                        dropentry(
+                            context.watch<Basicpro>().s,
+                            "3rd hour",
+                            (d) { a.third = d; }),
+
+                        dropentry(
+                            context.watch<Basicpro>().s,
+                            "4th hour",
+                            (d) { a.fourth = d; }),
+
+                        dropentry(
+                            context.watch<Basicpro>().s,
+                            "5th hour",
+                            (d) { a.fifth = d; }),
+
+                        const SizedBox(height: 23),
+
+                        Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.end,
+                          children: [
+                            buttonst(
+                              padding: 0,
+                              width: 100,
+                              clr: Colors.grey.shade400,
+                              txtclr: Colors.black,
+                              txt: 'Submit',
+                              onPressed: () async {
+                                a.submitTt();
+                                a.addtttolocal();
+                              },
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
           },
-          segments: [
-          
-          ButtonSegment(value: "Monday",label: Text("Mon")),
-          ButtonSegment(value: "Tuesday",label: Text("Tue")),
-          ButtonSegment(value: "Wednesday",label: Text("Wed")),
-          ButtonSegment(value: "Thursday",label: Text("Thu")),
-          ButtonSegment(value: "Friday",label: Text("Fri"))],
-           selected:context.watch<adminpro>().s),
+        ),
       ),
-     dentry(context.read<adminpro>().classNames, "Class",(d){
-      a.classget(d);}),
-    dentry(a.years.map((e){return e.toString();}).toList(), "Batch",(d){a.batch=int.parse(d);
-    print(a.batch.toString());
-    })
-   ,  dropentry(context.watch<Basicpro>().s, "1st hour",(d){a.first=d;})
-     , dropentry(context.watch<Basicpro>().s, "2nd hour",(d){a.second=d;})
-     , dropentry(context.watch<Basicpro>().s, "3rd hour",(d){a.third=d;})
-     , dropentry(context.watch<Basicpro>().s, "4th hour",(d){a.fourth=d;})
-     ,
-      dropentry(context.watch<Basicpro>().s, "5th hour",(d){a.fifth=d;})
-     
-     ,SizedBox(height:  23,),
-      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-        buttonst(padding: 0, width: 100, clr:
-         Colors.grey.shade400,
-         txtclr: Colors.black, txt: 'Submit', onPressed: () async{ a.submitTt();
-         a.addtttolocal();
-          },)],)
-      
-      ],),
-    )),);
+    );
   }
 }
