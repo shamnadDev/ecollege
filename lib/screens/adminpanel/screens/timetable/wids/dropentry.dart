@@ -6,10 +6,10 @@ Widget dropentry(List<Subject> ls,
 String txt,ValueChanged<dynamic> d){
 
 return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4),
           child: Text("$txt\t:",style: TextStyle(fontSize: 18),),
         ),
         Center(
@@ -19,7 +19,7 @@ return Row(
               enableSearch: true,
               enableFilter: true,
               onSelected:d,
-              width: 260,
+              width: 240,
               dropdownMenuEntries: 
             ls.map<DropdownMenuEntry>(
               (s){

@@ -20,6 +20,7 @@ import 'package:ecollege/screens/bv.dart';
 import 'package:ecollege/screens/home/home.dart';
 import 'package:ecollege/screens/login/loginscrn.dart';
 import 'package:ecollege/screens/messages/report.dart';
+import 'package:ecollege/screens/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -68,7 +69,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
       ),
-      home: authcheck()
+      home: SplashScreen()
       
       
     );

@@ -93,17 +93,26 @@ void deleteSub(Subject mdl)async{
 box.values.forEach((a){
   if(a.subjectid==mdl.subjectid&&a.subjectname.toString()==mdl.subjectname.toString()){
     a.delete();
+   s.removeWhere((b) =>
+    b.subjectid == mdl.subjectid &&
+    b.subjectname.toString() == mdl.subjectname.toString()
+);
   }
 });
-final a=await FirebaseFirestore.instance.collection("report").get();
-a.docs.forEach((as)async{
-  if(as.data()["subjectid"]==mdl.subjectname&&as.data()["subjectname"]==mdl.subjectname){
-await as.reference.delete();
-  }else{
-    print("notif");
-  }
+final snapshot = await FirebaseFirestore.instance
+    .collection("subject")
+    .where("subjectid", isEqualTo: mdl.subjectid)
+    .where("subjectname", isEqualTo: mdl.subjectname)
+    .get();
 
-});
+if (snapshot.docs.isEmpty) {
+  print(mdl.subjectid);
+  print("No matching documents found");
+} else {
+  for (var doc in snapshot.docs) {
+    await doc.reference.delete();
+  }
+}
 notifyListeners();
 
 }
@@ -189,7 +198,7 @@ print(doc.data()["email"]);
  
    s.setString("stdid", as.id.toString());
 notifyListeners();
-} else if(lgnemail.text.trim().toString()=="admin@123.com"&&lgnpass.text.toString().trim()=="admin123"){
+} else if(lgnemail.text.trim().toString()=="adminlgn@ecollege.com"&&lgnpass.text.toString().trim()=="adminasdf"){
  s.setString("admin", "adminlogin");
   k=2;
 }
