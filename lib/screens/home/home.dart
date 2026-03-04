@@ -161,7 +161,7 @@ class _homeState extends State<home> {
                                                   builder: (context) =>
                                                    ProfileScreen(name: scut.std1!.name, rollNo:  scut.std1!.rollNo, 
                                                    batch: scut.std1!.batch.toString(), regNo:  scut.std1!.id.toString(),
-                                                    attendancePercentage: scut.percentage, email:  scut.std1!.email
+                                                    attendancePercentage: double.parse(scut.percentage.toStringAsFixed(2)), email:  scut.std1!.email
                                                     , className:  scut.std1!.className.toString(),))));
                                     }),
                               ],
